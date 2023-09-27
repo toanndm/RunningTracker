@@ -2,16 +2,37 @@ package com.example.runningtracker.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import android.view.View
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
 import com.example.runningtracker.R
-import com.example.runningtracker.ui.viewmodels.MainViewModel
+import com.example.runningtracker.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
+
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        val view = binding.root
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        setContentView(view)
+
+        setSupportActionBar(binding.toolbar)
+
+        binding.bottomNavigationView.setupWithNavController(navHostFragment.navController)
+
+        navHostFragment.navController
+            .addOnDestinationChangedListener(NavController.OnDestinationChangedListener { _, destination, _
+                ->  when(destination.id) {
+                    R.id.runningFragment, R.id.statisticsFragment, R.id.settingFragment
+                    -> binding.bottomNavigationView.visibility = View.VISIBLE
+                    else -> binding.bottomNavigationView.visibility = View.GONE
+                }
+            })
+
     }
 }

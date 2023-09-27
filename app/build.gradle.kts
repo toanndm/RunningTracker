@@ -3,11 +3,13 @@ plugins {
     id("org.jetbrains.kotlin.android")
     kotlin("kapt")
     id("com.google.dagger.hilt.android")
+    id("kotlin-android")
 }
+
 
 android {
     namespace = "com.example.runningtracker"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.example.runningtracker"
@@ -17,6 +19,10 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildFeatures {
+        viewBinding = true
     }
 
     buildTypes {
@@ -65,6 +71,13 @@ dependencies {
     implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
     //Fragment ktx
     implementation("androidx.fragment:fragment-ktx:1.6.1")
+    //Navigation
+    implementation("androidx.navigation:navigation-fragment-ktx:2.7.3")
+    implementation("androidx.navigation:navigation-ui-ktx:2.7.0")
+    //Material design
+    implementation("androidx.compose.material:material:1.5.1")
+    //Line chart
+    implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")
 }
 
 kapt {
