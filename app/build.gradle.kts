@@ -78,6 +78,9 @@ dependencies {
     implementation("androidx.compose.material:material:1.5.1")
     //Line chart
     implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")
+    //EasyPermission
+    implementation ("pub.devrel:easypermissions:3.0.0")
+    implementation ("pub.devrel:easypermissions:2.0.1")
 }
 
 kapt {
