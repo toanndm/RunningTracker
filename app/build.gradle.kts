@@ -4,6 +4,8 @@ plugins {
     kotlin("kapt")
     id("com.google.dagger.hilt.android")
     id("kotlin-android")
+    id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
+
 }
 
 
@@ -57,6 +59,7 @@ dependencies {
     kapt("com.google.dagger:hilt-android-compiler:2.46")
     //GG Map
     implementation ("com.google.android.gms:play-services-maps:18.1.0")
+    implementation ("com.google.android.gms:play-services-location:21.0.1")
     // Room database
     val room_version = "2.5.2"
     implementation("androidx.room:room-runtime:$room_version")

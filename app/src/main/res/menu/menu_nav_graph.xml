@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/running"
+    <item android:id="@+id/runningFragment"
         android:title="Runs"
         android:icon="@drawable/baseline_directions_run_24"/>
-    <item android:id="@+id/statistics"
+    <item android:id="@+id/statisticsFragment"
         android:title="Statistic"
         android:icon="@drawable/baseline_statistic_24"/>
-    <item android:id="@+id/setting"
+    <item android:id="@+id/settingFragment"
         android:title="Setting"
         android:icon="@drawable/baseline_settings_24"/>
 </menu>

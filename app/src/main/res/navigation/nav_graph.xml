@@ -19,11 +19,24 @@
         <action
             android:id="@+id/action_runningFragment_to_trackingFragment"
             app:destination="@id/trackingFragment" />
+        <action
+            android:id="@+id/action_runningFragment_to_settingFragment"
+            app:destination="@id/settingFragment" />
+        <action
+            android:id="@+id/action_runningFragment_to_statisticsFragment"
+            app:destination="@id/statisticsFragment" />
     </fragment>
     <fragment
         android:id="@+id/statisticsFragment"
         android:name="com.example.runningtracker.ui.fragments.StatisticsFragment"
-        android:label="StatisticsFragment" />
+        android:label="StatisticsFragment" >
+        <action
+            android:id="@+id/action_statisticsFragment_to_runningFragment"
+            app:destination="@id/runningFragment" />
+        <action
+            android:id="@+id/action_statisticsFragment_to_settingFragment"
+            app:destination="@id/settingFragment" />
+    </fragment>
     <fragment
         android:id="@+id/trackingFragment"
         android:name="com.example.runningtracker.ui.fragments.TrackingFragment"
@@ -35,5 +48,12 @@
     <fragment
         android:id="@+id/settingFragment"
         android:name="com.example.runningtracker.ui.fragments.SettingFragment"
-        android:label="SettingFragment" />
+        android:label="SettingFragment" >
+        <action
+            android:id="@+id/action_settingFragment_to_runningFragment"
+            app:destination="@id/runningFragment" />
+        <action
+            android:id="@+id/action_settingFragment_to_statisticsFragment"
+            app:destination="@id/statisticsFragment" />
+    </fragment>
 </navigation>

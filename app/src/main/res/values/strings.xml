@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">RunningTracker</string>
-    <string name="MAP_API_KEY">AIzaSyAhwL4AMaijggRXgJKZfNWdaqwy9wLWG70</string>
     <string-array name="filter_options">
         <item>Date</item>
         <item>Running Time</item>
