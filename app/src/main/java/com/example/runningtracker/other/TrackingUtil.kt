@@ -13,12 +13,20 @@ object TrackingUtil {
             Manifest.permission.ACCESS_FINE_LOCATION,
             Manifest.permission.ACCESS_COARSE_LOCATION
         )
-    } else {
+    } else if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU){
         EasyPermissions.hasPermissions(
             context,
             Manifest.permission.ACCESS_FINE_LOCATION,
             Manifest.permission.ACCESS_COARSE_LOCATION,
             Manifest.permission.ACCESS_BACKGROUND_LOCATION
+        )
+    } else {
+        EasyPermissions.hasPermissions(
+            context,
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+            Manifest.permission.ACCESS_BACKGROUND_LOCATION,
+            Manifest.permission.POST_NOTIFICATIONS
         )
     }
 }

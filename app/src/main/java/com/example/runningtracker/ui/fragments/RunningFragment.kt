@@ -49,19 +49,29 @@ class RunningFragment : Fragment(R.layout.fragment_running), EasyPermissions.Per
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
             EasyPermissions.requestPermissions(
                 this,
-                "You need to accept location permission to use this application",
+                "You need to accept permissions to use this application",
                 REQUEST_PERMISSION_CODE,
                 Manifest.permission.ACCESS_FINE_LOCATION,
                 Manifest.permission.ACCESS_COARSE_LOCATION
             )
-        } else {
+        } else if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
             EasyPermissions.requestPermissions(
                 this,
-                "You need to accept location permission to use this application",
+                "You need to accept permissions to use this application",
                 REQUEST_PERMISSION_CODE,
                 Manifest.permission.ACCESS_FINE_LOCATION,
                 Manifest.permission.ACCESS_COARSE_LOCATION,
                 Manifest.permission.ACCESS_BACKGROUND_LOCATION
+            )
+        } else {
+            EasyPermissions.requestPermissions(
+                this,
+                "You need to accept permissions to use this application",
+                REQUEST_PERMISSION_CODE,
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_BACKGROUND_LOCATION,
+                Manifest.permission.POST_NOTIFICATIONS
             )
         }
     }

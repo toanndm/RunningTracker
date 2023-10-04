@@ -76,14 +76,16 @@ dependencies {
     implementation("androidx.fragment:fragment-ktx:1.6.1")
     //Navigation
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.3")
-    implementation("androidx.navigation:navigation-ui-ktx:2.7.0")
+    implementation("androidx.navigation:navigation-ui-ktx:2.7.3")
     //Material design
-    implementation("androidx.compose.material:material:1.5.1")
+    implementation("androidx.compose.material:material:1.5.2")
     //Line chart
     implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")
     //EasyPermission
     implementation ("pub.devrel:easypermissions:3.0.0")
-    implementation ("pub.devrel:easypermissions:2.0.1")
+    implementation ("pub.devrel:easypermissions:3.0.0")
+    //LifecycleService
+    implementation("androidx.lifecycle:lifecycle-service:2.6.2")
 }
 
 kapt {
