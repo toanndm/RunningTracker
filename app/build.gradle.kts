@@ -86,6 +86,8 @@ dependencies {
     implementation ("pub.devrel:easypermissions:3.0.0")
     //LifecycleService
     implementation("androidx.lifecycle:lifecycle-service:2.6.2")
+    //Live data
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
 }
 
 kapt {
