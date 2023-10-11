@@ -27,6 +27,7 @@ import com.example.runningtracker.other.Constant.LOCATION_UPDATE_INTERVAL
 import com.example.runningtracker.other.Constant.NOTIFICATION_CHANEL_ID
 import com.example.runningtracker.other.Constant.NOTIFICATION_CHANEL_NAME
 import com.example.runningtracker.other.Constant.NOTIFICATION_ID
+import com.example.runningtracker.other.Constant.TIMER_UPDATE_INTERVAL
 import com.example.runningtracker.other.TrackingUtil
 import com.example.runningtracker.ui.MainActivity
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -35,17 +36,30 @@ import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
 import com.google.android.gms.maps.model.LatLng
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
 typealias Polyline = MutableList<LatLng>
 typealias Polylines = MutableList<Polyline>
 class TrackingService: LifecycleService() {
-    var isFirstRun = true
+    private var isFirstRun = true
+
+    private var isTimerEnabled = false
+    private var lapTime = 0L
+    private var timeRun = 0L
+    private var timeStarted = 0L
+    private var lastSecondTimeStamp = 0L
+
+    private val timeRunInSeconds = MutableLiveData<Long>()
 
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     companion object {
         val isTracking = MutableLiveData<Boolean>()
         val pathPoints = MutableLiveData<Polylines>()
+        val timeRunInMillis = MutableLiveData<Long>()
     }
 
     override fun onCreate() {
@@ -68,7 +82,7 @@ class TrackingService: LifecycleService() {
                         isFirstRun = false
                     } else {
                         Timber.d("resume")
-                        startForegroundService()
+                        startTimer()
                     }
 
                 }
@@ -86,6 +100,29 @@ class TrackingService: LifecycleService() {
 
     private fun pauseService() {
         isTracking.postValue(false)
+        isTimerEnabled = false
+    }
+
+    private fun startTimer() {
+        addEmptyPolyline()
+        isTracking.postValue(true)
+        timeStarted = System.currentTimeMillis()
+        isTimerEnabled = true
+        CoroutineScope(Dispatchers.Main).launch {
+            while(isTracking.value!!) {
+                Timber.d("timeStarted = $timeStarted")
+                lapTime = System.currentTimeMillis() - timeStarted
+                timeRunInMillis.postValue(lapTime + timeRun)
+                Timber.d("lapTime = $lapTime")
+                Timber.d("timeRunMill = ${timeRunInMillis.value}")
+                if(timeRunInMillis.value!! >= lastSecondTimeStamp + 1000L) {
+                    timeRunInSeconds.postValue(timeRunInSeconds.value!! + 1)
+                    lastSecondTimeStamp += 1000L
+                }
+                delay(TIMER_UPDATE_INTERVAL)
+            }
+            timeRun += lapTime
+        }
     }
 
     @SuppressLint("MissingPermission")
@@ -109,7 +146,7 @@ class TrackingService: LifecycleService() {
         }
     }
 
-    val locationCallback = object : LocationCallback() {
+    private val locationCallback = object : LocationCallback() {
         override fun onLocationResult(p0: LocationResult) {
             super.onLocationResult(p0)
             if (isTracking.value!!) {
@@ -124,6 +161,8 @@ class TrackingService: LifecycleService() {
     private fun postInitialValues() {
         isTracking.postValue(false)
         pathPoints.postValue(mutableListOf())
+        timeRunInSeconds.postValue(0L)
+        timeRunInMillis.postValue(0L)
     }
 
     private fun addEmptyPolyline() = pathPoints.value?.apply {
@@ -142,7 +181,7 @@ class TrackingService: LifecycleService() {
     }
 
     private fun startForegroundService() {
-        addEmptyPolyline()
+        startTimer()
         isTracking.postValue(true)
         val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

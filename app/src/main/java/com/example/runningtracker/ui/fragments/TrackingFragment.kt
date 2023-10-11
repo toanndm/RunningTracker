@@ -17,6 +17,7 @@ import com.example.runningtracker.other.Constant.ACTION_START_RESUME_SERVICE
 import com.example.runningtracker.other.Constant.MAP_ZOOM
 import com.example.runningtracker.other.Constant.POLYLINE_COLOR
 import com.example.runningtracker.other.Constant.POLYLINE_WIDTH
+import com.example.runningtracker.other.TrackingUtil
 import com.example.runningtracker.services.Polyline
 import com.example.runningtracker.services.TrackingService
 import com.example.runningtracker.ui.viewmodels.MainViewModel
@@ -24,6 +25,7 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.PolylineOptions
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 @AndroidEntryPoint
 class TrackingFragment : Fragment(R.layout.fragment_tracking) {
@@ -32,6 +34,8 @@ class TrackingFragment : Fragment(R.layout.fragment_tracking) {
     private var map: GoogleMap? = null
     private var isTracking = false
     private var pathPoints = mutableListOf<Polyline>()
+
+    private var currenTimeMillis = 0L
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -63,6 +67,12 @@ class TrackingFragment : Fragment(R.layout.fragment_tracking) {
             pathPoints = it
             addLatestPolyline()
             moveCamera()
+        })
+        TrackingService.timeRunInMillis.observe(viewLifecycleOwner, Observer {
+            currenTimeMillis = it
+            val formattedTime = TrackingUtil.getFormattedStopWatch(currenTimeMillis, true)
+            binding.tvTimer.text = formattedTime
+            Timber.d("format = $formattedTime")
         })
     }
 
