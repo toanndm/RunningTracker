@@ -72,7 +72,6 @@ class TrackingFragment : Fragment(R.layout.fragment_tracking) {
             currenTimeMillis = it
             val formattedTime = TrackingUtil.getFormattedStopWatch(currenTimeMillis, true)
             binding.tvTimer.text = formattedTime
-            Timber.d("format = $formattedTime")
         })
     }
 
