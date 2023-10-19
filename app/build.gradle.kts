@@ -61,10 +61,10 @@ dependencies {
     implementation ("com.google.android.gms:play-services-maps:18.1.0")
     implementation ("com.google.android.gms:play-services-location:21.0.1")
     // Room database
-    val room_version = "2.5.2"
+    val room_version = "2.6.0"
     implementation("androidx.room:room-runtime:$room_version")
     kapt("androidx.room:room-compiler:$room_version")
-    implementation ("androidx.room:room-ktx:$room_version")
+    implementation("androidx.room:room-ktx:$room_version")
     //Coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
     implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")

@@ -5,7 +5,7 @@ import com.example.runningtracker.db.RunningDAO
 import javax.inject.Inject
 
 class MainRepository @Inject constructor(
-    val runningDAO: RunningDAO
+    private val runningDAO: RunningDAO
 ) {
     suspend fun insertRunning(running: Running) = runningDAO.insertRunning(running)
 
