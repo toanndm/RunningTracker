@@ -88,6 +88,8 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-service:2.6.2")
     //Live data
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
+    //Glide
+    implementation ("com.github.bumptech.glide:glide:4.16.0")
 }
 
 kapt {
