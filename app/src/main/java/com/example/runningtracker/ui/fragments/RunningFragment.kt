@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -18,6 +19,7 @@ import com.example.runningtracker.R
 import com.example.runningtracker.adapters.RunningAdapter
 import com.example.runningtracker.databinding.FragmentRunningBinding
 import com.example.runningtracker.other.Constant.REQUEST_PERMISSION_CODE
+import com.example.runningtracker.other.SortType
 import com.example.runningtracker.other.TrackingUtil
 import com.example.runningtracker.ui.viewmodels.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -44,7 +46,34 @@ class RunningFragment : Fragment(R.layout.fragment_running), EasyPermissions.Per
         requestPermission()
         setupRecyclerView()
 
-        mainViewModel.runningSortedByDate().observe(viewLifecycleOwner, Observer {
+        binding.spFilter.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                when (position) {
+                    0 -> mainViewModel.sortRuns(SortType.DATE)
+                    1 -> mainViewModel.sortRuns(SortType.RUNNING_TIME)
+                    2 -> mainViewModel.sortRuns(SortType.DISTANCE)
+                    3 -> mainViewModel.sortRuns(SortType.AVG_SPEED)
+                    4 -> mainViewModel.sortRuns(SortType.CALORIES_BURNED)
+
+                }
+            }
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
+
+        when (mainViewModel.sortType) {
+            SortType.DATE -> binding.spFilter.setSelection(0)
+            SortType.RUNNING_TIME -> binding.spFilter.setSelection(1)
+            SortType.DISTANCE -> binding.spFilter.setSelection(2)
+            SortType.AVG_SPEED -> binding.spFilter.setSelection(3)
+            SortType.CALORIES_BURNED -> binding.spFilter.setSelection(4)
+        }
+
+        mainViewModel.runnings.observe(viewLifecycleOwner, Observer {
             runningAdapter.submitList(it)
         })
 
