@@ -6,6 +6,10 @@ import androidx.compose.ui.graphics.Color
 
 object Constant {
     const val DATABASE_NAME: String = "running_db"
+    const val KEY_PREFERENCES_NAME = "KEY_PREFERENCES_NAME"
+    const val KEY_FIRST_TOGGLE = "KEY_FIRST_TOGGLE"
+    const val KEY_NAME = "KEY_NAME"
+    const val KEY_WEIGHT = "KEY_WEIGHT"
     const val REQUEST_PERMISSION_CODE: Int = 0
     const val ACTION_SHOW_TRACKING_FRAGMENT = "ACTION_SHOW_TRACKING_FRAGMENT"
     const val ACTION_START_RESUME_SERVICE = "START_RESUME_SERVICE"

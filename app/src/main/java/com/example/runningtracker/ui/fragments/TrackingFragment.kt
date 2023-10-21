@@ -45,6 +45,7 @@ import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import java.util.Calendar
+import javax.inject.Inject
 import kotlin.math.round
 
 @AndroidEntryPoint
@@ -56,7 +57,8 @@ class TrackingFragment : Fragment(R.layout.fragment_tracking) {
     private var pathPoints = mutableListOf<Polyline>()
     private var currentTimeMillis = 0L
     private var mMenu : Menu? = null
-    private var weight = 70f
+    @set:Inject
+    var weight = 70f
 
     override fun onCreateView(
         inflater: LayoutInflater,
