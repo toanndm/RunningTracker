@@ -30,6 +30,7 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
 
         binding.bottomNavigationView.setupWithNavController(navHostFragment.navController)
+        binding.bottomNavigationView.setOnItemReselectedListener { /* No-OP */ }
 
         navHostFragment.navController
             .addOnDestinationChangedListener(NavController.OnDestinationChangedListener { _, destination, _
