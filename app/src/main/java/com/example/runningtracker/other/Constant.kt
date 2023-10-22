@@ -24,7 +24,7 @@ object Constant {
     const val POLYLINE_WIDTH = 8f
     const val MAP_ZOOM = 15f
     const val TIMER_UPDATE_INTERVAL = 50L
-    val FLAG_PENDING_INTENT = if (Build.VERSION.SDK_INT > Build.VERSION_CODES.S) PendingIntent.FLAG_IMMUTABLE
+    val FLAG_PENDING_INTENT = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) PendingIntent.FLAG_IMMUTABLE
             else PendingIntent.FLAG_UPDATE_CURRENT
     const val CANCEL_TRACKING_DIALOG_TAG = "Cancel Tracking"
 }
