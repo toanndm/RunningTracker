@@ -44,7 +44,7 @@ object DbModule {
     @Singleton
     @Provides
     fun provideWeight(sharedPreferences: SharedPreferences) = sharedPreferences.getFloat(
-        KEY_WEIGHT, 0f)
+        KEY_WEIGHT, 70f)
 
     @Singleton
     @Provides
